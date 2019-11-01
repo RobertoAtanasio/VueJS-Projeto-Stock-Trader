@@ -1,0 +1,58 @@
+export default {
+    state: {
+        funds: 10000,
+        stocks: []
+    },
+    mutations: {
+        buyStock(state, {stockId, quantity, stockPrice}) {
+            // vefrificar se existe a ação já exstente no estoque do portfolio.
+            // Caso exista, adicionar, senão incluir a ação.
+            const record = state.stocks.find( elemento => elemento.id == stockId)
+            if (record) {
+                record.quantity += quantity
+            } else {
+                state.stocks.push ({
+                    id: stockId,
+                    quantity: quantity
+                })
+            }
+            state.funds -= quantity * stockPrice
+        },
+        sellStock(state, {stockId, quantity, stockPrice}) {
+            const record = state.stocks.find( elemento => elemento.id == stockId)
+            if (record.quantity > quantity) {
+                record.quantity -= quantity
+            } else {
+                const indice = state.stocks.indexOf(record) // índice do elemento a ser excluído
+                state.stocks.splice(indice, 1)
+            }
+            state.funds += quantity * stockPrice
+        }
+    },
+    actions: {
+        sellStock({ commit }, order) {
+            commit('sellStock', order)
+        }
+    },
+    getters: { 
+        // o segundo parâmetro, getters, equivale à lista de TODOS os getters, inclusive os definidos
+        // em stocks.js. Logo, teremos acesso ao array das ações cadastradas. Com isso podemos acessar
+        // o nome da ação para o preenchimento do portfólio, uma vez que o portfólio só guardado os 
+        // dados ID e quantidade.
+        stockPortfolio(state, getters) {
+            return state.stocks.map( e => {
+                // o parâmetro .stocks abaixo equivale a lista de açõa cadastradas
+                const record = getters.stocks.find(element => element.id == e.id)
+                return {
+                    id: e.id,
+                    quantity: e.quantity,
+                    name: record.name,
+                    price: record.price
+                }
+            })
+        },
+        funsds(state) {
+            return state.funds
+        }
+    }
+}
