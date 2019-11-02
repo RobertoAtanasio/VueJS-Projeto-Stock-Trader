@@ -15,7 +15,7 @@ export default {
             // this.$store.dispatch('initStocks')
 
             // eslint-disable-next-line
-            console.log('Stocks.vue...computed...stocks')
+            // console.log('Stocks.vue...computed...stocks')
             return this.$store.getters.stocks
         }
     },

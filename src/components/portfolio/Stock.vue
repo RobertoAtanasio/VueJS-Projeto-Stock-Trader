@@ -3,19 +3,22 @@
         <v-card class="blue darken-3 white--text">
             <v-card-title class="headline">
                 <strong>
-                    {{ stock.name }} 
+                    {{ stockLido.name }} 
                     <small>
-                        (Preço: {{ stock.price }} | Qtde: {{ stock.quantity }})
+                        (Preço: {{ stockLido.price | currency }} | Qtde: {{ stockLido.quantity }})
                     </small>
                 </strong>
             </v-card-title>
         </v-card>
         <v-card>
             <v-container fill-height>
-                <v-text-field label="Quantidade" type="number" v-model.number="quantity"/>
+                <v-text-field label="Quantidade" type="number" 
+                    :error="insufficientQuatity"    
+                    v-model.number="quantity"/>
                 <v-btn class="blue darken-3 white--text"
                     @click="sellStock"
-                    :disabled="quantity <= 0 || !Number.isInteger(quantity)">Vender</v-btn>
+                    :disabled="insufficientQuatity">
+                    {{ quantity > stockLido.quantity ? 'Insuficiente' : 'Vender'}} </v-btn>
             </v-container>
         </v-card>
     </v-flex>
@@ -25,7 +28,7 @@
 import { mapActions } from 'vuex'
 
 export default {
-    props: ['stock'],
+    props: ['stockLido'],
     data() {
         return {
             quantity: 0
@@ -35,13 +38,20 @@ export default {
         ...mapActions({sellStockAction: 'sellStock'}),
         sellStock() {
             const order = {
-                stockId: this.stock.id,
-                stockPrice: this.stock.price,
+                stockId: this.stockLido.id,
+                stockPrice: this.stockLido.price,
                 quantity: this.quantity
             }
             this.sellStockAction(order)                     // dispara a ação de portfolio.js
             // this.$store.dispatch('sellStock', order)     // dispara a ação de portfolio.js
             this.quantity = 0
+        }
+    },
+    computed: {
+        insufficientQuatity() {
+            return this.quantity <= 0 
+                || !Number.isInteger(this.quantity) 
+                || this.quantity > this.stockLido.quantity
         }
     },
 }

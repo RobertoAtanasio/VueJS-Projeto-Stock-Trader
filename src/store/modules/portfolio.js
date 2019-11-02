@@ -1,9 +1,13 @@
 export default {
     state: {
         funds: 10000,
+        fundsProjetado: 10000,
         stocks: []
     },
     mutations: {
+        AtualizaSaldoProjetado(state, valor) {
+            state.fundsProjetado -= valor
+        },
         buyStock(state, {stockId, quantity, stockPrice}) {
             // vefrificar se existe a ação já exstente no estoque do portfolio.
             // Caso exista, adicionar, senão incluir a ação.
@@ -17,6 +21,9 @@ export default {
                 })
             }
             state.funds -= quantity * stockPrice
+            state.fundsProjetado = state.funds
+            // eslint-disable-next-line
+            // console.log('Atualizando saldo...', state.funds, state.fundsProjetado)
         },
         sellStock(state, {stockId, quantity, stockPrice}) {
             const record = state.stocks.find( elemento => elemento.id == stockId)
@@ -27,11 +34,19 @@ export default {
                 state.stocks.splice(indice, 1)
             }
             state.funds += quantity * stockPrice
+            state.fundsProjetado = state.funds
+        },
+        alterarSaldo(state, valor) {
+            state.funds = valor
+            state.fundsProjetado = valor
         }
     },
     actions: {
         sellStock({ commit }, order) {
             commit('sellStock', order)
+        },
+        alterarSaldo({ commit }, saldo) {
+            commit('alterarSaldo', saldo)
         }
     },
     getters: { 
@@ -51,8 +66,11 @@ export default {
                 }
             })
         },
-        funsds(state) {
+        funds(state) {
             return state.funds
+        },
+        fundsProjetado(state) {
+            return state.fundsProjetado
         }
     }
 }
