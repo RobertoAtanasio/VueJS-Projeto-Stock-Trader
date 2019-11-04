@@ -39,6 +39,11 @@ export default {
         alterarSaldo(state, valor) {
             state.funds = valor
             state.fundsProjetado = valor
+        },
+        setPortfolio(state, portfolio) {
+            state.funds = portfolio.funds
+            state.stocks = portfolio.stockPortfolio ? portfolio.stockPortfolio : []
+            state.fundsProjetado = state.funds
         }
     },
     actions: {
@@ -52,11 +57,11 @@ export default {
     getters: { 
         // o segundo parâmetro, getters, equivale à lista de TODOS os getters, inclusive os definidos
         // em stocks.js. Logo, teremos acesso ao array das ações cadastradas. Com isso podemos acessar
-        // o nome da ação para o preenchimento do portfólio, uma vez que o portfólio só guardado os 
+        // o nome da ação para o preenchimento do portfólio, uma vez que o portfólio só guarda os 
         // dados ID e quantidade.
         stockPortfolio(state, getters) {
             return state.stocks.map( e => {
-                // o parâmetro .stocks abaixo equivale a lista de açõa cadastradas
+                // o parâmetro .stocks abaixo equivale a lista de ações cadastradas
                 const record = getters.stocks.find(element => element.id == e.id)
                 return {
                     id: e.id,

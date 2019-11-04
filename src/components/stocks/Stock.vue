@@ -30,8 +30,7 @@ export default {
     data() {
         return {
             quantity: 0,
-            valorCompraAnterior: 0,
-            alterou: false
+            valorCompraAnterior: 0
         }
     },
     watch: {
@@ -43,7 +42,6 @@ export default {
                 // eslint-disable-next-line
                 // console.log("to before ...", to, before, valor)
             }
-            this.alterou = true
         }
     },
     computed: {
