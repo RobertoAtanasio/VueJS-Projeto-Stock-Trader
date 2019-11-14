@@ -18,7 +18,7 @@ export default {
   components: { Header },
   created() {
     // inicializar as ações
-    this.$store.dispatch('initStocks')
+    this.$store.dispatch('initStocks')    // execua a actions em stocks.js
   },
   data () {
     return {

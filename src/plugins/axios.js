@@ -10,6 +10,9 @@ Vue.use({
 
         // para interceptar requisição
         Vue.prototype.$http.interceptors.request.use( config => {
+            
+            // --- inclu aqui suas regras de negócio
+            
             return config
         }, error => Promise.reject(error))
 

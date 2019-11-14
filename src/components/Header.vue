@@ -36,6 +36,9 @@
 </template>
 
 <script>
+// loadData está em actions.js
+// radomizeStocks está em stocks.js
+// Utilizando o ...mapActions este componente terá acesso direto a essas actions
 import { mapActions} from 'vuex'
 export default {
     computed: {

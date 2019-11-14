@@ -38,7 +38,7 @@ export default {
             if (to == 0) {
                 const valor = this.getValorCompraAnterior()
                 this.setValorCompraAnterior(0)
-                this.$store.dispatch('AtualizaSaldoProjetado', -valor)  
+                this.$store.dispatch('AtualizaSaldoProjetado', -valor)      // chama action em stocks.js
                 // eslint-disable-next-line
                 // console.log("to before ...", to, before, valor)
             }
