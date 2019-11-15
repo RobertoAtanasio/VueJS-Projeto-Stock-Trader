@@ -39,7 +39,7 @@ export default {
         }
     },
     getters: {
-        stocks(state) {
+        stocks2(state) {
             return state.stocks
         }
     }

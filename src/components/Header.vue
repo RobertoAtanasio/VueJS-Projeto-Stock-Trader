@@ -55,7 +55,9 @@ export default {
             this.radomizeStocks()
         },
         saveData() {
-            const { funds, stockPortfolio, stocks } = this.$store.getters
+            const { funds, stockPortfolio, stocks2 } = this.$store.getters
+            const stocks = {...stocks2}
+            // atualizar o banco de dados firebase
             this.$http.put('data.json', { funds, stockPortfolio, stocks })
         },
         loadDataLocal() {

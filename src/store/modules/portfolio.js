@@ -62,7 +62,7 @@ export default {
         stockPortfolio(state, getters) {
             return state.stocks.map( e => {
                 // o parâmetro .stocks abaixo equivale a lista de ações cadastradas
-                const record = getters.stocks.find(element => element.id == e.id)
+                const record = getters.stocks2.find(element => element.id == e.id)
                 return {
                     id: e.id,
                     quantity: e.quantity,

@@ -10,13 +10,13 @@ export default {
     components: { Stock },
     computed: {
         stocks() {
-            // a inicialização está sendo feita quando do created do componente Aapp.vue
+            // a inicialização está sendo feita quando do created do componente App.vue
             // Inicializar as ações:
             // this.$store.dispatch('initStocks')
 
             // eslint-disable-next-line
             // console.log('Stocks.vue...computed...stocks')
-            return this.$store.getters.stocks
+            return this.$store.getters.stocks2
         }
     },
     // data() {
